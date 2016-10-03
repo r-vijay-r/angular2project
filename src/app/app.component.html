@@ -1,3 +1,26 @@
-<h1>
-  {{title}}
-</h1>
+   <!-- Check for un-Authenticated Status, if not then Login button will initiate it-->
+        <div  *ngIf="!(af.auth | async)">
+        <button class = "demo-button" color="primary"
+            (click)= "af.auth.login()">
+            Login
+          </button>
+        </div>
+    <!-- Check for Authenticated Status, if not then Logout button will initiate it-->
+        <div  *ngIf="(af.auth | async)">
+        <div style="font-family: 'Pacifico', serif;"> Welcome {{(af.auth | async).auth.displayName}} 
+        <br>
+          <button class = "demo-button" color="primary"
+            (click)= "af.auth.logout()">
+            Logout
+          </button>
+        </div>
+        </div>
+        <!-- Read from Database after modifying the rules-->
+        <h1>
+        From DataBase Read
+        </h1>
+                <ul>
+                <li class="text" *ngFor="let item of items | async">
+                {{item.$value}}
+                </li>
+                </ul>
